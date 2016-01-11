@@ -1,5 +1,5 @@
 #learningExample
-做为学习的沉淀或许有用。
+学习、沉淀
 
 相关依赖需要使用
-[http://git.oschina.net/justinliang/rabbitframework](http://git.oschina.net/justinliang/rabbitframework "rabbitframework") 
+[https://github.com/liangjy/rabbitframework](https://github.com/liangjy/rabbitframework "rabbitframework") 
