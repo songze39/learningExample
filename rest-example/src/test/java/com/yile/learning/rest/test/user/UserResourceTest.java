@@ -13,6 +13,6 @@ public class UserResourceTest extends AbstractSpringTestCase {
 	@Test
 	public void TestGetUsername() {
 		UserResource userResource = this.getBean(UserResource.class);
-		logger.info("userName:" + userResource.userName());
+		logger.info("userName:" + userResource.getUserName());
 	}
 }
