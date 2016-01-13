@@ -575,7 +575,7 @@
 	# AOF and RDB persistence can be enabled at the same time without problems.
 	# If the AOF is enabled on startup Redis will load the AOF, that is the file
 	# with the better durability guarantees.
-	#
+	#是否开启appendonlylog，开启的话每次写操作会记一条log，这会提高数据抗风险能力，但影响效率。
 	# Please check http://redis.io/topics/persistence for more information.
 	
 	appendonly no
@@ -606,9 +606,11 @@
 	# http://antirez.com/post/redis-persistence-demystified.html
 	#
 	# If unsure, use "everysec".
-	
+	#每次收到写命令就立即强制写入磁盘，是最有保证的完全的持久化，但速度也是最慢的，一般不推荐使用
 	# appendfsync always
+	#每秒钟强制写入磁盘一次，在性能和持久化方面做了很好的折中，是受推荐的方式。
 	appendfsync everysec
+	#完全依赖OS的写入，一般为30秒左右一次，性能最好但是持久化最没有保证，不被推荐。
 	# appendfsync no
 	
 	# When the AOF fsync policy is set to always or everysec, and a background
@@ -629,7 +631,8 @@
 	#
 	# If you have latency problems turn this to "yes". Otherwise leave it as
 	# "no" that is the safest pick from the point of view of durability.
-	
+	#设置为yes表示rewrite期间对新写操作不fsync,暂时存在内存中,等rewrite完成后再写入,
+	#默认为no,建议yes
 	no-appendfsync-on-rewrite no
 	
 	# Automatic rewrite of the append only file.
@@ -648,8 +651,9 @@
 	#
 	# Specify a percentage of zero in order to disable the automatic AOF
 	# rewrite feature.
-	
+	#当前AOF文件大小是上次日志重写得到AOF文件大小的二倍时，自动启动新的日志重写过程。
 	auto-aof-rewrite-percentage 100
+	#当前AOF文件启动新的日志重写过程的最小值，避免刚刚启动Reids时由于文件尺寸较小导致频繁的重写。
 	auto-aof-rewrite-min-size 64mb
 	
 	# An AOF file may be found to be truncated at the end during the Redis
