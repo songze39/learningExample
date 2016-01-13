@@ -1,7 +1,11 @@
 package com.yile.learning.rest.model;
 
-public class User {
+import javax.ws.rs.FormParam;
+
+public class User implements java.io.Serializable {
+	@FormParam("id")
 	private String id;
+	@FormParam("name")
 	private String name;
 
 	public void setId(String id) {

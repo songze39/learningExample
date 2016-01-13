@@ -1,7 +1,11 @@
 package com.yile.learning.rest.user;
 
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -65,4 +69,11 @@ public class UserResource extends AbstractContextResource {
 		return "putObjectSuccess";
 	}
 
+	@POST
+	@Path("post")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String post(@BeanParam User user) {
+		System.out.println("putId:" + user.getId());
+		return "postSuccess";
+	}
 }
