@@ -24,7 +24,7 @@ public class UserResourceClientTest {
 		System.out.println("str:" + str);
 	}
 
-	// @Test
+	@Test
 	public void testPutId() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(serverUri + "/putId");
@@ -55,7 +55,7 @@ public class UserResourceClientTest {
 	/**
 	 * form表单提交，如果服务端接收参数没有使用@BeanParam或@FormParam的话，完全可以像put请求一样传参数
 	 */
-	@Test
+	// @Test
 	public void testPost() {
 		Client client = ClientBuilder.newClient();
 		MultivaluedMap<String, String> multivaluedMap = new MultivaluedHashMap<>();

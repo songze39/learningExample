@@ -1,9 +1,7 @@
 package com.yile.learning.rest.user;
 
 import javax.ws.rs.BeanParam;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -17,13 +15,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.yile.learning.rest.AbstractContextResource;
+import com.rabbitframework.web.resources.RabbitContextResource;
 import com.yile.learning.rest.model.User;
 
 @Component("userResource")
 @Path("")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class UserResource extends AbstractContextResource {
+public class UserResource extends RabbitContextResource {
 
 	/**
 	 * get请求

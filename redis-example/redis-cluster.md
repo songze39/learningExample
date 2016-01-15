@@ -3,7 +3,7 @@
 	port 7000   #端口号
 	daemonize yes　#后台启动
 	cluster-enabled yes  #集群配置
-	cluster-config-file nodes-7000.conf #开启后自动创建 
+	cluster-config-file nodes.conf #开启后自动创建 
 	cluster-node-timeout 5000   #集群结点超时
 	appendonly yes  #开启AOF
 
@@ -14,8 +14,8 @@
 	    –replicas 1：表示我们希望为集群中的每个主节点创建一个从节点
 	2. 检测集群命令：./redis-trib.rb check 127.0.0.1:7000
 	  　　可以查看出主/从节点。
-	3.　新增节点：./redis-trib.rb add-node 127.0.0.1:7006 
-	    	默认是主节点(待验证)
+	3.　新增节点：./redis-trib.rb add-node  new_host:new_port existing_host:existing_port
+	    	默认是主节点，需要分配solt
 	4. 为新节点分配slot: redis-trib.rb reshard 10.10.34.14:6386
 	5. 增加slave节点:/redis-trib.rb add-node –slave –master-id  ’ee05942ee38a56421a07eea01bc6072fe5e23bfd’ 127.0.0.1:7008  127.0.0.1:7000  
 	
