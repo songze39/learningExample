@@ -49,6 +49,7 @@
 		<com.rabbitframework.version>1.0</com.rabbitframework.version>
 		<fastjson.version>1.2.7</fastjson.version>
 		<jedis.verion>2.8.0</jedis.verion>
+		<org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>
 	</properties>
 
 	<dependencies>
@@ -103,6 +104,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${org.apache.zookeeper.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
