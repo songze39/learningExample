@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>zookeeper-example</artifactId>
 	<packaging>jar</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
