@@ -50,6 +50,7 @@
 		<fastjson.version>1.2.7</fastjson.version>
 		<jedis.verion>2.8.0</jedis.verion>
 		<org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>
+		<org.apache.curator.version>2.9.1</org.apache.curator.version>
 	</properties>
 
 	<dependencies>
@@ -104,16 +105,30 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- zookeeper相关 -->
 			<dependency>
 				<groupId>org.apache.zookeeper</groupId>
 				<artifactId>zookeeper</artifactId>
 				<version>${org.apache.zookeeper.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+				<version>${org.apache.curator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+				<version>${org.apache.curator.version}</version>
+			</dependency>
+			<!-- zookeeper end -->
+			<!-- redis -->
+			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
 				<version>${jedis.verion}</version>
 			</dependency>
+			<!-- redis end -->
 			<dependency>
 				<groupId>ognl</groupId>
 				<artifactId>ognl</artifactId>
