@@ -11,6 +11,7 @@
 		<module>rest-example</module>
 		<module>redis-example</module>
 		<module>zookeeper-example</module>
+		<module>cassandra-example</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
