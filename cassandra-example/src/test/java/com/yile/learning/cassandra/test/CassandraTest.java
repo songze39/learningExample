@@ -1,8 +1,13 @@
 package com.yile.learning.cassandra.test;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import org.apache.cassandra.thrift.Cassandra;
+import org.apache.cassandra.thrift.CfDef;
+import org.apache.cassandra.thrift.Compression;
+import org.apache.cassandra.thrift.ConsistencyLevel;
+import org.apache.cassandra.thrift.CqlResult;
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.logging.log4j.LogManager;
@@ -23,11 +28,11 @@ public class CassandraTest extends AbstractCassandraCase {
 	private Cassandra.Client client;
 	private TTransport transport;
 
-	@Test
-	public void testCassandra() throws InvalidRequestException, TException {
-		 List<KsDef> ksDefs = client.describe_keyspaces();
-		 for (KsDef ksDef : ksDefs) {
-			logger.info("keyspaces:"+ksDef.getName());
+	// @Test
+	public void getKeyspaces() throws Exception {
+		List<KsDef> ksDefs = client.describe_keyspaces();
+		for (KsDef ksDef : ksDefs) {
+			logger.info("keyspaces:" + ksDef.getName());
 		}
 	}
 
