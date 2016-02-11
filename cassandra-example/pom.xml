@@ -10,7 +10,14 @@
 	</parent>
 	<artifactId>cassandra-example</artifactId>
 	<packaging>jar</packaging>
+	<properties>
+		<cassandra-all.version>3.3</cassandra-all.version>
+	</properties>
 	<dependencies>
-	
+		<dependency>
+			<groupId>org.apache.cassandra</groupId>
+			<artifactId>cassandra-all</artifactId>
+			<version>${cassandra-all.version}</version>
+		</dependency>
 	</dependencies>
 </project>
