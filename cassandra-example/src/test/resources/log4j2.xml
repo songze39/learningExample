@@ -18,7 +18,7 @@
 	<loggers>
 		<logger name="com.rabbitframework.jadb" level="info" />
 		<logger name="org.springframework" level="info" />
-		<logger name="com.yile.learning" level="info" />
+		<logger name="com.yile.learning" level="debug" />
 		<logger name="com.rabbitframework.commons" level="info" />
 		<logger name="com.mchange.v2" level="info" />
 		<root level="DEBUG">

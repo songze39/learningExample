@@ -1,5 +1,5 @@
 package com.yile.learning.cassandra.test;
-
+import static com.yile.learning.cassandra.test.Constants.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -32,8 +32,6 @@ import me.prettyprint.hector.api.query.RangeSlicesQuery;
 
 public class HectorTest extends AbstractCassandraCase {
 	private static final Logger logger = LogManager.getLogger(HectorTest.class);
-	private static final String DYN_KEYSPACE = "DynamicKeyspace";
-	private static final String DYN_CF = "DynamicCf";
 	// private static final String CF_SUPER = "SuperCf";
 	private static StringSerializer stringSerializer = StringSerializer.get();
 	private Cluster cluster;
@@ -132,7 +130,7 @@ public class HectorTest extends AbstractCassandraCase {
 	public void testMain() {
 		// createSchema();
 		// getKeyspaces();
-		// insertData();
+//		 insertData();
 		query();
 	}
 }

@@ -12,6 +12,8 @@
 	<packaging>jar</packaging>
 	<properties>
 		<cassandra-all.version>3.3</cassandra-all.version>
+		<astyanax.version>3.9.0</astyanax.version>
+		<hector-core.version>1.1-4</hector-core.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -19,11 +21,27 @@
 			<artifactId>cassandra-all</artifactId>
 			<version>${cassandra-all.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hectorclient</groupId>
 			<artifactId>hector-core</artifactId>
-			<version>1.1-4</version>
+			<version>${hector-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.netflix.astyanax</groupId>
+			<artifactId>astyanax-recipes</artifactId>
+			<version>${astyanax.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.astyanax</groupId>
+			<artifactId>astyanax-thrift</artifactId>
+			<version>${astyanax.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.astyanax</groupId>
+			<artifactId>astyanax-contrib</artifactId>
+			<version>${astyanax.version}</version>
 		</dependency>
 	</dependencies>
 </project>
