@@ -16,7 +16,7 @@ import com.yile.learning.rest.model.User;
 public class UserResourceClientTest {
 	private static final String serverUri = "http://localhost:8080/rest-example";
 
-	// @Test
+	 @Test
 	public void testGetUserName() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(serverUri + "/getUserName");
@@ -36,7 +36,7 @@ public class UserResourceClientTest {
 	/**
 	 * 参数的传递可能是对象+json的MediaType类型也可以是string的json串
 	 */
-	// @Test
+	 @Test
 	public void testPutObject() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(serverUri + "/putObject");
@@ -55,7 +55,7 @@ public class UserResourceClientTest {
 	/**
 	 * form表单提交，如果服务端接收参数没有使用@BeanParam或@FormParam的话，完全可以像put请求一样传参数
 	 */
-	// @Test
+	 @Test
 	public void testPost() {
 		Client client = ClientBuilder.newClient();
 		MultivaluedMap<String, String> multivaluedMap = new MultivaluedHashMap<>();
