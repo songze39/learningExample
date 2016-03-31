@@ -8,7 +8,7 @@
 		<artifactId>learning-example</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>rest-example</artifactId>
+	<artifactId>web-example</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
