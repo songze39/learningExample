@@ -8,7 +8,7 @@
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>rest-example</module>
+		<module>web-example</module>
 		<module>redis-example</module>
 		<module>zookeeper-example</module>
 		<module>cassandra-example</module>
