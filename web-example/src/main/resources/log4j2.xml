@@ -16,7 +16,7 @@
 		</Console>
 	</appenders>
 	<loggers>
-		<logger name="com.rabbitframework.jadb" level="info" />
+		<logger name="com.rabbitframework" level="trace" />
 		<logger name="org.springframework" level="info" />
 		<logger name="com.yile.lollipop" level="info" />
 		<logger name="com.rabbitframework.commons" level="info" />

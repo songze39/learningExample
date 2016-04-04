@@ -1,5 +1,7 @@
 package com.yile.learning.rest.user;
 
+import java.io.IOException;
+
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -11,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.glassfish.jersey.server.mvc.Viewable;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -33,6 +36,13 @@ public class UserResource extends RabbitContextResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getUserName() {
 		return "justin";
+	}
+
+	@GET
+	@Path("testIndex")
+	@Produces(MediaType.TEXT_HTML)
+	public Viewable index() {
+		return new Viewable("/index.jsp", null);
 	}
 
 	/**
