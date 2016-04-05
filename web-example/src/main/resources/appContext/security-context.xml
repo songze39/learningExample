@@ -10,15 +10,15 @@
 	<bean id="securityManager"
 		class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="testRealm" />
-		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
 	</bean>
 	<bean id="testRealm" class="com.yile.learning.security.realm.TestRealm" />
 	<bean id="securityFilter"
 		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login/login.jsp" /> <!-- 没有权限或者失败后跳转的页面 -->
-		<property name="successUrl" value="/main/index.jsp" />
-		<property name="unauthorizedUrl" value="/login/unauthorized" />
+		<property name="loginUrl" value="/login" /> <!-- 没有权限或者失败后跳转的页面 -->
+		<property name="successUrl" value="/index" />
+		<property name="unauthorizedUrl" value="/unauthorized" />
 		<property name="filterChainDefinitions">
 			<value>
 				/login/logout=logout
