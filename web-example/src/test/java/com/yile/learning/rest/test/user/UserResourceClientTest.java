@@ -11,7 +11,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.junit.Test;
 
-import com.yile.learning.rest.model.User;
+import com.yile.learning.model.User;
 
 public class UserResourceClientTest {
 	private static final String serverUri = "http://localhost:8080/rest-example";

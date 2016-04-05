@@ -1,4 +1,4 @@
-package com.yile.learning.rest.model;
+package com.yile.learning.model;
 
 import javax.ws.rs.FormParam;
 

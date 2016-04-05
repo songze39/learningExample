@@ -1,4 +1,4 @@
-package com.yile.learning.rest.user;
+package com.yile.learning.resource;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.rabbitframework.web.resources.RabbitContextResource;
-import com.yile.learning.rest.model.User;
+import com.yile.learning.model.User;
 
 @Component("userResource")
 @Path("")

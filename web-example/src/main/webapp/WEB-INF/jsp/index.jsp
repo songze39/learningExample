@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello web-example!
+	<%-- <img src="${pageContext.request.contextPath}/images/test.jpg"/>--%>
+	hello web-example!
 </body>
 </html>
