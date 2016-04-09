@@ -7,7 +7,7 @@ import com.rabbitframework.security.authz.AuthorizationInfo;
 import com.rabbitframework.security.realm.AuthorizingRealm;
 import com.rabbitframework.security.subject.PrincipalCollection;
 
-public class LearningRealm extends AuthorizingRealm {
+public class SecurityRealm extends AuthorizingRealm {
 	/**
 	 * 授权认证,在配有缓存时只调用一次
 	 */
