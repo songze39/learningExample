@@ -17,12 +17,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.rabbitframework.web.resources.RabbitContextResource;
-import com.yile.learning.model.User;
+import com.yile.learning.model.Learning;
 
-@Component("userResource")
+@Component("learningResource")
 @Path("")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class UserResource extends RabbitContextResource {
+public class LearningResource extends RabbitContextResource {
 
 	/**
 	 * get请求
@@ -70,7 +70,7 @@ public class UserResource extends RabbitContextResource {
 	@PUT
 	@Path("putObject")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String putObject(User user) {
+	public String putObject(Learning user) {
 		System.out.println("putId:" + user.getName());
 		return "putObjectSuccess";
 	}
@@ -78,7 +78,7 @@ public class UserResource extends RabbitContextResource {
 	@POST
 	@Path("post")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String post(@BeanParam User user) {
+	public String post(@BeanParam Learning user) {
 		System.out.println("putId:" + user.getId());
 		return "postSuccess";
 	}

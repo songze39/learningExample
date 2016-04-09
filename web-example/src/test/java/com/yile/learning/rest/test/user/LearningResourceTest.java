@@ -4,15 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
-import com.yile.learning.resource.UserResource;
+import com.yile.learning.resource.LearningResource;
 import com.yile.learning.rest.test.AbstractSpringTestCase;
 
-public class UserResourceTest extends AbstractSpringTestCase {
-	private static final Logger logger = LogManager.getLogger(UserResourceTest.class);
+public class LearningResourceTest extends AbstractSpringTestCase {
+	private static final Logger logger = LogManager.getLogger(LearningResourceTest.class);
 
 	@Test
 	public void TestGetUsername() {
-		UserResource userResource = this.getBean(UserResource.class);
+		LearningResource userResource = this.getBean(LearningResource.class);
 		logger.info("userName:" + userResource.getUserName());
 	}
 }

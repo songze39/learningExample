@@ -11,9 +11,9 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.junit.Test;
 
-import com.yile.learning.model.User;
+import com.yile.learning.model.Learning;
 
-public class UserResourceClientTest {
+public class LearningResourceClientTest {
 	private static final String serverUri = "http://localhost:8080/rest-example";
 
 	 @Test
@@ -40,10 +40,10 @@ public class UserResourceClientTest {
 	public void testPutObject() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(serverUri + "/putObject");
-		User user = new User();
+		Learning user = new Learning();
 		user.setId("userId");
 		user.setName("Objectparam");
-		Entity<User> entity = Entity.entity(user, MediaType.APPLICATION_JSON);
+		Entity<Learning> entity = Entity.entity(user, MediaType.APPLICATION_JSON);
 		// 或
 		// String input = "{\"id\":\"2\",\"name\":\"jsonstring\"}";
 		// Entity<String> entity = Entity.entity(input,
