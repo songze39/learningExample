@@ -47,6 +47,7 @@
 		<com.google.guava.version>18.0</com.google.guava.version>
 		<ognl.version>3.1.1</ognl.version>
 		<commons-logging.version>1.2</commons-logging.version>
+		<commons-io.version>2.4</commons-io.version>
 		<com.rabbitframework.version>1.1.1-SNAPSHOT</com.rabbitframework.version>
 		<fastjson.version>1.2.7</fastjson.version>
 		<jedis.verion>2.8.0</jedis.verion>
@@ -55,6 +56,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -77,23 +83,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>com.rabbitframework</groupId>
-			<artifactId>rabbitframework-jadb</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.rabbitframework</groupId>
-			<artifactId>rabbitframework-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.rabbitframework</groupId>
-			<artifactId>rabbitframework-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.rabbitframework</groupId> <artifactId>rabbitframework-jadb</artifactId> 
+			</dependency> <dependency> <groupId>com.rabbitframework</groupId> <artifactId>rabbitframework-web</artifactId> 
+			</dependency> <dependency> <groupId>com.rabbitframework</groupId> <artifactId>rabbitframework-security</artifactId> 
+			</dependency> <dependency> <groupId>org.springframework</groupId> <artifactId>spring-test</artifactId> 
+			<scope>test</scope> </dependency> -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-jcl</artifactId>
