@@ -12,7 +12,7 @@
 		<property name="realm" ref="testRealm" />
 		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
 	</bean>
-	<bean id="testRealm" class="com.yile.learning.security.realm.TestRealm" />
+	<bean id="testRealm" class="com.yile.learning.security.realm.SecurityRealm" />
 	<bean id="securityFilter"
 		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -21,9 +21,9 @@
 		<property name="unauthorizedUrl" value="/unauthorized" />
 		<property name="filterChainDefinitions">
 			<value>
-				/login/logout=logout
 				/login/**=anon
-				/**=authc,rest
+				/login/logout=logout
+				/**=authc
 			</value>
 		</property>
 	</bean>
