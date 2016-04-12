@@ -16,12 +16,12 @@
 		</Console>
 	</appenders>
 	<loggers>
-		<logger name="com.rabbitframework.jadb" level="DEBUG" />
+		<logger name="com.rabbitframework" level="TRACE" />
 		<logger name="org.springframework" level="DEBUG" />
 		<logger name="com.yile.learning" level="DEBUG" />
 		<logger name="com.rabbitframework.commons" level="DEBUG" />
 		<logger name="com.mchange.v2" level="DEBUG" />
-		<root level="DEBUG">
+		<root level="TRACE">
 			<appender-ref ref="Console" />
 		</root>
 	</loggers>

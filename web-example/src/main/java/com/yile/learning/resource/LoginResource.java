@@ -13,6 +13,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.rabbitframework.security.SecurityUtils;
+import com.rabbitframework.security.subject.Subject;
+
 @Component("loginResource")
 @Path("")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -28,19 +31,27 @@ public class LoginResource {
 	@Path("login")
 	@Produces(MediaType.TEXT_HTML)
 	public Viewable login() {
+		logger.debug("getLogin");
 		return new Viewable("/login/login.jsp");
 	}
 
 	@POST
 	@Path("login")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_HTML)
 	public String loginPost() {
-		return "test";
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) {
+			logger.debug("postLogin" + currentUser);
+		} else {
+			logger.debug("nulllogin");
+		}
+		return "dddd";
 	}
 
 	@GET
 	@Path("index")
 	public Viewable index() {
+		logger.debug("index");
 		return new Viewable("/index.jsp");
 	}
 

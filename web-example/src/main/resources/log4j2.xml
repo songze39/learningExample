@@ -21,7 +21,7 @@
 		<logger name="com.yile" level="debug" />
 		<logger name="com.rabbitframework.commons" level="info" />
 		<logger name="com.mchange.v2" level="info" />
-		<root level="DEBUG">
+		<root level="trace">
 			<appender-ref ref="Console" />
 		</root>
 	</loggers>

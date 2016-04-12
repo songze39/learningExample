@@ -9,10 +9,12 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<bean id="securityManager"
 		class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="testRealm" />
+		<property name="realm" ref="securityRealm" />
 		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
 	</bean>
-	<bean id="testRealm" class="com.yile.learning.security.realm.SecurityRealm" />
+	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
+		<property name="name" value="securityRealm" />
+	</bean>
 	<bean id="securityFilter"
 		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -21,6 +23,7 @@
 		<property name="unauthorizedUrl" value="/unauthorized" />
 		<property name="filterChainDefinitions">
 			<value>
+				/login=authc
 				/login/**=anon
 				/login/logout=logout
 				/**=authc

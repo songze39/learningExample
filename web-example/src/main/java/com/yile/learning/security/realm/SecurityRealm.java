@@ -18,7 +18,7 @@ public class SecurityRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		logger.debug("AuthorizationInfo");
+		logger.debug("AuthorizationInfo:" + getName());
 		return null;
 	}
 
@@ -27,8 +27,7 @@ public class SecurityRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		logger.debug("AuthenticationInfo");
-		getName();
+		logger.debug("AuthenticationInfo:" + getName());
 		return null;
 	}
 
