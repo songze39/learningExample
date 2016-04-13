@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.2.2.RELEASE</spring.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
 		<log4j2.version>2.3</log4j2.version>
 		<log4j-slf4j-impl.version>2.3</log4j-slf4j-impl.version>
 		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
@@ -35,7 +35,6 @@
 		<jstl.version>1.1.2</jstl.version>
 		<asm-tree.version>4.2</asm-tree.version>
 		<commons-lang.version>2.4</commons-lang.version>
-		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-beanutils.version>1.8.3</commons-beanutils.version>
 		<commons-jexl.version>1.1</commons-jexl.version>
 		<log4j-jcl.version>2.3</log4j-jcl.version>
@@ -53,6 +52,7 @@
 		<jedis.verion>2.8.0</jedis.verion>
 		<org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>
 		<org.apache.curator.version>2.9.1</org.apache.curator.version>
+		<druid.version>0.1.19</druid.version>
 	</properties>
 
 	<dependencies>
@@ -99,6 +99,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
 			<!-- zookeeper相关 -->
 			<dependency>
 				<groupId>org.apache.zookeeper</groupId>
@@ -190,11 +195,6 @@
 				<groupId>commons-jexl</groupId>
 				<artifactId>commons-jexl</artifactId>
 				<version>${commons-jexl.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-collections</groupId>
-				<artifactId>commons-collections</artifactId>
-				<version>${commons-collections.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>

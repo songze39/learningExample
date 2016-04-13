@@ -1,5 +1,7 @@
 package com.yile.learning.security.realm;
 
+import javax.annotation.Resource;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,8 +11,11 @@ import com.rabbitframework.security.authc.AuthenticationToken;
 import com.rabbitframework.security.authz.AuthorizationInfo;
 import com.rabbitframework.security.realm.AuthorizingRealm;
 import com.rabbitframework.security.subject.PrincipalCollection;
+import com.yile.learning.service.UserService;
 
 public class SecurityRealm extends AuthorizingRealm {
+	@Resource
+	private UserService userService;
 	private static final Logger logger = LogManager.getLogger(SecurityRealm.class);
 
 	/**

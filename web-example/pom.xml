@@ -11,9 +11,13 @@
 	<artifactId>web-example</artifactId>
 	<packaging>war</packaging>
 	<properties>
-		<jetty-maven-plugin.version>8.1.16.v20140903</jetty-maven-plugin.version>
+		<jetty-maven-plugin.version>9.3.7.v20160115</jetty-maven-plugin.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -31,11 +35,14 @@
 			<artifactId>rabbitframework-security</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.rabbitframework</groupId>
+			<artifactId>rabbitframework-jadb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -52,7 +59,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty-maven-plugin.version}</version>
 				<configuration>
