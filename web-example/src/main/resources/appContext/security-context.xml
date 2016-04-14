@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-	<bean id="securityManager"
-		class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="securityRealm" />
-		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
-	</bean>
-	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
-		<property name="name" value="securityRealm" />
-	</bean>
-	<bean id="securityFilter"
-		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
-		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" /> <!-- 没有权限或者失败后跳转的页面 -->
-		<property name="successUrl" value="/index" />
-		<property name="unauthorizedUrl" value="/unauthorized" />
-		<property name="filterChainDefinitions">
-			<value>
-				/login=authc
-				/login/**=anon
-				/login/logout=logout
-				/**=authc
-			</value>
-		</property>
-	</bean>
-	<!-- 用户授权/认证信息Cache, 采用EhCache 缓存 -->
-	<!-- <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"> 
-		<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/> 
-		</bean> -->
-	<!-- 实现了Shiro内部lifecycle函数的bean执行 -->
-	<bean id="lifecycleBeanPostProcessor"
-		class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor" />
+    <bean id="securityManager"
+          class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="securityRealm"/>
+        <!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
+    </bean>
+    <bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
+        <property name="name" value="securityRealm"/>
+    </bean>
+    <bean id="securityFilter"
+          class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <!-- 没有权限或者失败后跳转的页面 -->
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!--/login=authc-->
+                /login=anon
+                /login/**=anon
+                /login/logout=logout
+                /**=authc
+            </value>
+        </property>
+    </bean>
+    <!-- 用户授权/认证信息Cache, 采用EhCache 缓存 -->
+    <!-- <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
+        </bean> -->
+    <!-- 实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor"
+          class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor"/>
 
-	<!-- AOP式方法级权限检查 Enable Shiro Annotations for Spring-configured beans. Only 
-		run after the lifecycleBeanProcessor has run -->
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
-	<bean
-		class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
+    <!-- AOP式方法级权限检查 Enable Shiro Annotations for Spring-configured beans. Only
+        run after the lifecycleBeanProcessor has run -->
+    <bean
+            class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean
+            class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 </beans>

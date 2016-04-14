@@ -20,7 +20,7 @@ import com.rabbitframework.web.resources.RabbitContextResource;
 import com.yile.learning.model.Learning;
 
 @Component("learningResource")
-@Path("")
+@Path("/")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LearningResource extends RabbitContextResource {
 

@@ -9,7 +9,7 @@
 		<table>
 			<tr>
 				<td>用户名:</td>
-				<td><input id="username" name="username" /></td>
+				<td><input id="userName" name="userName" /></td>
 			</tr>
 			<tr>
 				<td>密 码：</td>
