@@ -1,42 +1,47 @@
 package com.yile.learning.security.realm;
 
 public class SecurityUser implements java.io.Serializable {
-    private String userName;
-    private int userId;
-    private String loginName;
+	private static final long serialVersionUID = 1L;
+	private String userName;
+	private int userId;
+	private String loginName;
 
-    public SecurityUser(String userName, int userId, String loginName) {
-        this.userId = userId;
-        this.userName = userName;
-        this.loginName = loginName;
-    }
+	public SecurityUser() {
 
-    public String getUserName() {
-        return userName;
-    }
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public SecurityUser(String userName, int userId, String loginName) {
+		this.userId = userId;
+		this.userName = userName;
+		this.loginName = loginName;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getLoginName() {
-        return loginName;
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    @Override
-    public String toString() {
-        return loginName;
-    }
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	@Override
+	public String toString() {
+		return loginName;
+	}
 }
