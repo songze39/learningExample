@@ -12,6 +12,16 @@ public class UserRole implements java.io.Serializable {
 	private int userId;
 	@Column
 	private int roleId;
+	@Column
+	private String roleCode;
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
 
 	public int getId() {
 		return id;

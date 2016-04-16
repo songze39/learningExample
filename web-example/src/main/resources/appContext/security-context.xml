@@ -10,10 +10,40 @@
 	<bean id="securityManager"
 		class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="securityRealm" />
+		<property name="sessionManager" ref="webSessionManager" />
 		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
 	</bean>
+	<bean name="webSessionManager"
+		class="com.rabbitframework.security.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionValidationSchedulerEnabled" value="false" />
+	</bean>
+	<bean name="sessionIdCookie" class="com.rabbitframework.security.web.servlet.SimpleCookie">
+		<constructor-arg name="name" value="RSESSIONID" />
+		<property name="path" value="/" />
+	</bean>
+
+	<bean id="sessionValidationScheduler"
+		class="com.rabbitframework.security.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<property name="interval" value="3600000" />
+		<property name="sessionManager" ref="webSessionManager" />
+	</bean>
+
 	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
 		<property name="name" value="securityRealm" />
+	</bean>
+	<bean id="lifecycleBeanPostProcessor"
+		class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor" />
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean
+		class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
 	</bean>
 	<bean id="securityFilter"
 		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
@@ -31,18 +61,5 @@
 				/**=authc
 			</value>
 		</property>
-	</bean>
-
-	<bean id="lifecycleBeanPostProcessor"
-		class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor" />
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
-
-	<bean
-		class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
 	</bean>
 </beans>

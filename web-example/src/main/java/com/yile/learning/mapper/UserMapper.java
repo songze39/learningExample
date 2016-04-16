@@ -8,9 +8,10 @@ import com.yile.learning.model.UserInfo;
 @Mapper
 public interface UserMapper {
 	@Select("select * from user_info where user_name=#{userName} and user_pwd=#{userPwd}")
-	public UserInfo getUserInfoByParams(@Param("userName") String userName, @Param("userPwd") String userPwd);
+	public UserInfo getUserInfoByParams(@Param("userName") String userName,
+			@Param("userPwd") String userPwd);
 
-    @Select("select * from user_info where user_name=#{userName}")
+	@Select("select * from user_info where user_name=#{userName}")
 	public UserInfo getUserInfoByLoginName(String userName);
 
 }
