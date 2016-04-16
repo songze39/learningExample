@@ -10,8 +10,8 @@
 	<context:property-placeholder location="classpath:jedisconfig.properties" />
 	<bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
 		<property name="blockWhenExhausted" value="${redis.blockWhenExhausted}" />
-		<property name="testOnBorrow" value=${redis.testOnBorrow} />
-		<property name="testWhileIdle" value=${redis.testWhileIdle} />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+		<property name="testWhileIdle" value="${redis.testWhileIdle}" />
 	</bean>
 	<bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
 		<constructor-arg index="0">
