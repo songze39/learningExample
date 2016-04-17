@@ -9,7 +9,7 @@
 	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
-			<ThresholdFilter level="trace" onMatch="ACCEPT"
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
 				onMismatch="DENY" />
 			<!--这个都知道是输出日志的格式 -->
 			<PatternLayout pattern="${log_pattern}" />
@@ -18,10 +18,10 @@
 	<loggers>
 		<logger name="com.rabbitframework" level="TRACE" />
 		<logger name="org.springframework" level="DEBUG" />
-		<logger name="com.yile" level="debug" />
+		<logger name="com.yile.learning" level="DEBUG" />
 		<logger name="com.rabbitframework.commons" level="DEBUG" />
 		<logger name="com.mchange.v2" level="DEBUG" />
-		<root level="debug">
+		<root level="DEBUG">
 			<appender-ref ref="Console" />
 		</root>
 	</loggers>

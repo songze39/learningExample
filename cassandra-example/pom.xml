@@ -38,10 +38,10 @@
 			<artifactId>astyanax-thrift</artifactId>
 			<version>${astyanax.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.netflix.astyanax</groupId>
-			<artifactId>astyanax-contrib</artifactId>
-			<version>${astyanax.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.netflix.astyanax</groupId>-->
+			<!--<artifactId>astyanax-contrib</artifactId>-->
+			<!--<version>${astyanax.version}</version>-->
+		<!--</dependency>-->
 	</dependencies>
 </project>
