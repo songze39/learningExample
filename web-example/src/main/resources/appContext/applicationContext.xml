@@ -11,6 +11,7 @@
     <aop:aspectj-autoproxy expose-proxy="true"/>
     <import resource="classpath:/appContext/jadb-context.xml"/>
     <import resource="classpath:/appContext/rest-context.xml"/>
+    <import resource="classpath:/appContext/jedis-context.xml"/>
     <import resource="classpath:/appContext/security-context.xml"/>
     <!-- <import resource="classpath:/appContext/jadb-context.xml" /> -->
 </beans>

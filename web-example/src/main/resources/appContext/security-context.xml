@@ -1,65 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-	<bean id="securityManager"
-		class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="securityRealm" />
-		<property name="sessionManager" ref="webSessionManager" />
-		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
-	</bean>
-	<bean name="webSessionManager"
-		class="com.rabbitframework.security.web.session.mgt.DefaultWebSessionManager">
-		<property name="sessionIdCookie" ref="sessionIdCookie" />
-		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
-		<property name="sessionValidationSchedulerEnabled" value="false" />
-	</bean>
-	<bean name="sessionIdCookie" class="com.rabbitframework.security.web.servlet.SimpleCookie">
-		<constructor-arg name="name" value="RSESSIONID" />
-		<property name="path" value="/" />
-	</bean>
+    <bean id="securityManager"
+          class="com.rabbitframework.security.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="securityRealm"/>
+        <property name="sessionManager" ref="webSessionManager"/>
+        <property name="cacheManager" ref="redisCacheManager"/>
+    </bean>
 
-	<bean id="sessionValidationScheduler"
-		class="com.rabbitframework.security.session.mgt.ExecutorServiceSessionValidationScheduler">
-		<property name="interval" value="3600000" />
-		<property name="sessionManager" ref="webSessionManager" />
-	</bean>
+    <bean name="webSessionManager"
+          class="com.rabbitframework.security.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDAO"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionValidationSchedulerEnabled" value="false"/>
+    </bean>
 
-	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
-		<property name="name" value="securityRealm" />
-	</bean>
-	<bean id="lifecycleBeanPostProcessor"
-		class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor" />
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
+    <bean name="sessionIdCookie" class="com.rabbitframework.security.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="RSESSIONID"/>
+        <property name="path" value="/"/>
+    </bean>
 
-	<bean
-		class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
-	<bean id="securityFilter"
-		class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
-		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
-		<!-- 没有权限或者失败后跳转的页面 -->
-		<property name="successUrl" value="/index" />
-		<property name="unauthorizedUrl" value="/unauthorized" />
-		<property name="filterChainDefinitions">
-			<value>
-				<!--/login=authc -->
-				/login=anon
-				/login/**=anon
-				/login/logout=logout
-				/**=authc
-			</value>
-		</property>
-	</bean>
+    <bean id="sessionValidationScheduler"
+          class="com.rabbitframework.security.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="3600000"/>
+        <property name="sessionManager" ref="webSessionManager"/>
+    </bean>
+    <bean id="redisCacheManager" class="com.yile.learning.security.rediscache.RedisCacheManager">
+        <property name="redisManager" ref="shardedJedisPoolManager"/>
+    </bean>
+
+    <bean id="shardedJedisPoolManager" class="com.yile.learning.security.rediscache.ShardedJedisPoolManager">
+        <property name="expire" value="3600"/>
+    </bean>
+
+    <bean id="redisSessionDAO" class="com.yile.learning.security.rediscache.RedisSessionDAO">
+        <property name="redisManager" ref="shardedJedisPoolManager"/>
+    </bean>
+
+    <bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
+        <property name="name" value="securityRealm"/>
+    </bean>
+
+    <bean id="lifecycleBeanPostProcessor"
+          class="com.rabbitframework.security.spring.LifecycleBeanPostProcessor"/>
+    <bean
+            class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <bean
+            class="com.rabbitframework.security.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean id="securityFilter"
+          class="com.rabbitframework.security.spring.web.SecurityFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <!-- 没有权限或者失败后跳转的页面 -->
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!--/login=authc -->
+                /login=anon
+                /login/**=anon
+                /login/logout=logout
+                /**=authc
+            </value>
+        </property>
+    </bean>
 </beans>
