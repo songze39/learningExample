@@ -519,7 +519,7 @@ public class JedisClusterTest extends Assert {
 			executor.submit(new Callable<String>() {
 				@Override
 				public String call() throws Exception {
-					// FIXME : invalidate slot cache from JedisCluster to test
+					// FIXME : invalidate slot rediscache from JedisCluster to test
 					// random connection also does work
 					return jc.get("foo");
 				}

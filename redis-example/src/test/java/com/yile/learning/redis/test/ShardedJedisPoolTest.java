@@ -15,41 +15,47 @@ import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
 public class ShardedJedisPoolTest {
-	private static final Logger logger = LogManager.getLogger(ShardedJedisPoolTest.class);
-	private ShardedJedisPool shardedJedisPool;
+    private static final Logger logger = LogManager.getLogger(ShardedJedisPoolTest.class);
+    private ShardedJedisPool shardedJedisPool;
 
-	@Before
-	public void before() {
-		List<JedisShardInfo> shards = new ArrayList<>();
-		JedisShardInfo jedisShardInfo = new JedisShardInfo("192.168.2.111", 6379);
-		shards.add(jedisShardInfo);
-		GenericObjectPoolConfig config = new GenericObjectPoolConfig();
-		config.setMaxTotal(1);
-		config.setBlockWhenExhausted(false);
-		config.setTestOnBorrow(true);
-		config.setTestWhileIdle(true);
-		shardedJedisPool = new ShardedJedisPool(config, shards);
-	}
+    @Before
+    public void before() {
+        List<JedisShardInfo> shards = new ArrayList<>();
+        JedisShardInfo jedisShardInfo = new JedisShardInfo("localhost", 6379);
+        shards.add(jedisShardInfo);
+        GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+        config.setMaxTotal(1);
+        config.setBlockWhenExhausted(false);
+        config.setTestOnBorrow(true);
+        config.setTestWhileIdle(true);
+        shardedJedisPool = new ShardedJedisPool(config, shards);
+    }
 
-	@After
-	public void after() {
-		shardedJedisPool.close();
-	}
+    @After
+    public void after() {
+        shardedJedisPool.close();
+    }
 
-	@Test
-	public void setValue() {
-		ShardedJedis shardedJedis = getShardedJedis();
-		String result = shardedJedis.set("redisexample", "shardedjedispool");
-		logger.debug("result:" + result);
-	}
+    @Test
+    public void setValue() {
+        ShardedJedis shardedJedis = getShardedJedis();
 
-	/**
-	 * 获取分片{@link ShardedJedis}
-	 * 
-	 * @return
-	 */
-	public ShardedJedis getShardedJedis() {
-		ShardedJedis shardedJedis = shardedJedisPool.getResource();
-		return shardedJedis;
-	}
+        String result = shardedJedis.set("redisexample", "shardedjedispool");
+        logger.debug("result:" + result);
+        shardedJedis.close();
+        shardedJedis = getShardedJedis();
+        shardedJedis.set("redisexample2", "shardedjedispool2");
+        shardedJedis.close();
+
+    }
+
+    /**
+     * 获取分片{@link ShardedJedis}
+     *
+     * @return
+     */
+    public ShardedJedis getShardedJedis() {
+        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+        return shardedJedis;
+    }
 }
