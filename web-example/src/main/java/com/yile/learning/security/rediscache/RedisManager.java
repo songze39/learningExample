@@ -47,6 +47,9 @@ public class RedisManager {
         Jedis jedis = jedisPool.getResource();
         try {
             value = jedis.get(key);
+        } catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -80,6 +83,9 @@ public class RedisManager {
             if (expire != 0) {
                 jedis.expire(key, expire);
             }
+        } catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -95,6 +101,9 @@ public class RedisManager {
         Jedis jedis = jedisPool.getResource();
         try {
             jedis.del(key);
+        }catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -107,6 +116,9 @@ public class RedisManager {
         Jedis jedis = jedisPool.getResource();
         try {
             jedis.flushDB();
+        } catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -120,6 +132,9 @@ public class RedisManager {
         Jedis jedis = jedisPool.getResource();
         try {
             dbSize = jedis.dbSize();
+        } catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -137,6 +152,9 @@ public class RedisManager {
         Jedis jedis = jedisPool.getResource();
         try {
             keys = jedis.keys(pattern.getBytes());
+        } catch (Throwable e) {
+            jedisPool.returnBrokenResource(jedis);
+            throw new RuntimeException(e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -162,7 +180,7 @@ public class RedisManager {
     public int getExpire() {
         return expire;
     }
-    
+
     public void setExpire(int expire) {
         this.expire = expire;
     }
