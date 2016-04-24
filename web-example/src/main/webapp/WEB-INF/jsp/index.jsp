@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@taglib prefix="security" uri="http://yile.security.com/tags" %>
+<%@taglib prefix="security" uri="http://rabbitframework.security.com/tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
