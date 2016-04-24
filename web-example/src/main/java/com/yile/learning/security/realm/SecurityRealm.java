@@ -21,56 +21,54 @@ import com.yile.learning.biz.UserManagerBiz;
 import com.yile.learning.model.UserInfo;
 
 public class SecurityRealm extends AuthorizingRealm {
-    @Autowired
-    private UserManagerBiz userManagerBiz;
-    private static final Logger logger = LoggerFactory.getLogger(SecurityRealm.class);
+	@Autowired
+	private UserManagerBiz userManagerBiz;
+	private static final Logger logger = LoggerFactory.getLogger(SecurityRealm.class);
 
-    /**
-     * 授权认证,在配有缓存时只调用一次
-     */
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(
-            PrincipalCollection principals) {
-        logger.debug("AuthorizationInfo:" + getName());
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        Object obj = principals.getPrimaryPrincipal();
-        if (obj instanceof SecurityUser) {
-            logger.debug("====================doGetAuthorizationInfo begin ==========================");
-            SecurityUser securityUser = (SecurityUser) obj;
-            int userId = securityUser.getUserId();
-            Set<String> userRoles = userManagerBiz.findUserRoleCodeByUserId(userId);
-            authorizationInfo.addRoles(userRoles);
-            logger.debug("====================doGetAuthorizationInfo end ==========================");
-        }
-        return authorizationInfo;
-    }
+	/**
+	 * 授权认证,在配有缓存时只调用一次
+	 */
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		logger.debug("AuthorizationInfo:" + getName());
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		Object obj = principals.getPrimaryPrincipal();
+		if (obj instanceof SecurityUser) {
+			logger.debug("====================doGetAuthorizationInfo begin ==========================");
+			SecurityUser securityUser = (SecurityUser) obj;
+			int userId = securityUser.getUserId();
+			Set<String> userRoles = userManagerBiz.findUserRoleCodeByUserId(userId);
+			authorizationInfo.addRoles(userRoles);
+			logger.debug("====================doGetAuthorizationInfo end ==========================");
+		}
+		return authorizationInfo;
+	}
 
-    /**
-     * 登录认证,登录时调用
-     */
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken token) throws AuthenticationException {
-        logger.debug("AuthenticationInfo:" + getName());
-        UsernamePasswordToken usernamePasswordToke = (UsernamePasswordToken) token;
-        String password = new String(usernamePasswordToke.getPassword());
-        String username = usernamePasswordToke.getUsername();
-        logger.debug("====================doGetAuthenticationInfo begin ==========================");
-        logger.debug("username: " + username);
-        logger.debug("password: " + password);
-        logger.debug("principal: " + usernamePasswordToke.getPrincipal());
-        logger.debug("======================doGetAuthenticationInfo end ========================");
-        UserInfo userInfo = userManagerBiz.getUserInfoByLoginName(username);
-        if (userInfo == null) {
-            throw new UnknownAccountException();// 没有找到帐号
-        }
-        userInfo = userManagerBiz.getUserInfoByParams(username, new Md5Hash(
-                password).toString());
-        if (userInfo == null) {
-            throw new IncorrectCredentialsException();// 用户名或密码不匹配
-        }
-
-        return new SimpleAuthenticationInfo(new SecurityUser(username,
-                userInfo.getUserId(), username), password, getName());
-    }
+	/**
+	 * 登录认证,登录时调用
+	 */
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		logger.debug("AuthenticationInfo:" + getName());
+		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+		String password = new String(usernamePasswordToken.getPassword());
+		password = new Md5Hash(password).toString();
+		String username = usernamePasswordToken.getUsername();
+		logger.debug("====================doGetAuthenticationInfo begin ==========================");
+		logger.debug("username: " + username);
+		logger.debug("password: " + password);
+		logger.debug("principal: " + usernamePasswordToken.getPrincipal());
+		logger.debug("======================doGetAuthenticationInfo end ========================");
+		UserInfo userInfo = userManagerBiz.getUserInfoByLoginName(username);
+		if (userInfo == null) {
+			throw new UnknownAccountException();// 没有找到帐号
+		}
+		userInfo = userManagerBiz.getUserInfoByParams(username, password);
+		if (userInfo == null) {
+			throw new IncorrectCredentialsException();// 用户名或密码不匹配
+		}
+		usernamePasswordToken.setPassword(password.toCharArray());
+		return new SimpleAuthenticationInfo(new SecurityUser(username, userInfo.getUserId(), username), password,
+				getName());
+	}
 }
