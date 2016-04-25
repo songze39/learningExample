@@ -1,19 +1,23 @@
 package com.yile.learning.resource;
 
-import javax.ws.rs.*;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.rabbitframework.security.authc.UsernamePasswordToken;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.rabbitframework.security.SecurityUtils;
-import com.rabbitframework.security.subject.Subject;
 import com.yile.learning.security.realm.SecurityUser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 @Component("loginResource")
 @Path("/")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

@@ -2,34 +2,37 @@ package com.yile.learning.security.realm;
 
 import java.util.Set;
 
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.rabbitframework.security.authc.AuthenticationException;
-import com.rabbitframework.security.authc.AuthenticationInfo;
-import com.rabbitframework.security.authc.AuthenticationToken;
-import com.rabbitframework.security.authc.IncorrectCredentialsException;
-import com.rabbitframework.security.authc.SimpleAuthenticationInfo;
-import com.rabbitframework.security.authc.UnknownAccountException;
-import com.rabbitframework.security.authc.UsernamePasswordToken;
-import com.rabbitframework.security.authz.AuthorizationInfo;
-import com.rabbitframework.security.authz.SimpleAuthorizationInfo;
-import com.rabbitframework.security.crypto.hash.Md5Hash;
-import com.rabbitframework.security.realm.AuthorizingRealm;
-import com.rabbitframework.security.subject.PrincipalCollection;
+
 import com.yile.learning.biz.UserManagerBiz;
 import com.yile.learning.model.UserInfo;
 
 public class SecurityRealm extends AuthorizingRealm {
 	@Autowired
 	private UserManagerBiz userManagerBiz;
-	private static final Logger logger = LoggerFactory.getLogger(SecurityRealm.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(SecurityRealm.class);
 
 	/**
 	 * 授权认证,在配有缓存时只调用一次
 	 */
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+	protected AuthorizationInfo doGetAuthorizationInfo(
+			PrincipalCollection principals) {
 		logger.debug("AuthorizationInfo:" + getName());
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Object obj = principals.getPrimaryPrincipal();
@@ -37,10 +40,15 @@ public class SecurityRealm extends AuthorizingRealm {
 			logger.debug("====================doGetAuthorizationInfo begin ==========================");
 			SecurityUser securityUser = (SecurityUser) obj;
 			int userId = securityUser.getUserId();
-			Set<String> userRoles = userManagerBiz.findUserRoleCodeByUserId(userId);
+			Set<String> userRoles = userManagerBiz
+					.findUserRoleCodeByUserId(userId);
 			authorizationInfo.addRoles(userRoles);
 			logger.debug("====================doGetAuthorizationInfo end ==========================");
 		}
+		String permission1 = "/index";
+		String permission2 = "/index/2";
+		authorizationInfo.addStringPermission(permission1);
+		authorizationInfo.addStringPermission(permission2);
 		return authorizationInfo;
 	}
 
@@ -48,7 +56,8 @@ public class SecurityRealm extends AuthorizingRealm {
 	 * 登录认证,登录时调用
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(
+			AuthenticationToken token) throws AuthenticationException {
 		logger.debug("AuthenticationInfo:" + getName());
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String password = new String(usernamePasswordToken.getPassword());
@@ -68,7 +77,7 @@ public class SecurityRealm extends AuthorizingRealm {
 			throw new IncorrectCredentialsException();// 用户名或密码不匹配
 		}
 		usernamePasswordToken.setPassword(password.toCharArray());
-		return new SimpleAuthenticationInfo(new SecurityUser(username, userInfo.getUserId(), username), password,
-				getName());
+		return new SimpleAuthenticationInfo(new SecurityUser(username,
+				userInfo.getUserId(), username), password, getName());
 	}
 }

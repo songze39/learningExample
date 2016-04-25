@@ -1,12 +1,17 @@
 package com.yile.learning.security.rediscache;
 
-import com.rabbitframework.security.cache.Cache;
-import com.rabbitframework.security.cache.CacheException;
-import com.rabbitframework.security.util.CollectionUtils;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheException;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 /**
  * redis缓存实现
@@ -15,7 +20,8 @@ import java.util.*;
  * @param <V>
  */
 public class RedisCache<K, V> implements Cache<K, V> {
-	private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(RedisCache.class);
 	private RedisManager cache;
 	/**
 	 * The Redis key prefix for the sessions
