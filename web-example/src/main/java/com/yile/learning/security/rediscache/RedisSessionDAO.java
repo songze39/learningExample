@@ -8,6 +8,9 @@ import java.util.Set;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,13 +30,36 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
 	@Override
 	public void update(Session session) throws UnknownSessionException {
+		PrincipalCollection existingPrincipals = (PrincipalCollection) session
+				.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+		if (existingPrincipals == null
+				|| CollectionUtils.isEmpty(existingPrincipals)) {
+			logger.error("PrincipalCollection is null");
+			return;
+		}
 		logger.info("RedisSessionDAO:update");
 		this.saveSession(session);
 	}
 
+	@Override
+	protected Serializable doCreate(Session session) {
+		Serializable sessionId = this.generateSessionId(session);
+		this.assignSessionId(session, sessionId);
+		logger.info("RedisSessionDAO:doCreate=>" + sessionId);
+		PrincipalCollection existingPrincipals = (PrincipalCollection) session
+				.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+		if (existingPrincipals == null
+				|| CollectionUtils.isEmpty(existingPrincipals)) {
+			logger.error("PrincipalCollection is null");
+			return sessionId;
+		}
+		this.saveSession(session);
+		return sessionId;
+	}
+
 	/**
 	 * save session
-	 *
+	 * 
 	 * @param session
 	 * @throws UnknownSessionException
 	 */
@@ -42,7 +68,6 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 			logger.error("session or session id is null");
 			return;
 		}
-
 		byte[] key = getByteKey(session.getId());
 		byte[] value = SerializeUtils.serialize(session);
 		session.setTimeout(redisManager.getExpire() * 1000);
@@ -73,14 +98,6 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 		}
 
 		return sessions;
-	}
-
-	@Override
-	protected Serializable doCreate(Session session) {
-		Serializable sessionId = this.generateSessionId(session);
-		this.assignSessionId(session, sessionId);
-		this.saveSession(session);
-		return sessionId;
 	}
 
 	@Override

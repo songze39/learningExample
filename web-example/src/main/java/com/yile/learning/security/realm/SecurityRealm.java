@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.rabbitframework.security.SecurityUser;
 import com.yile.learning.biz.UserManagerBiz;
 import com.yile.learning.model.UserInfo;
 
@@ -77,7 +78,9 @@ public class SecurityRealm extends AuthorizingRealm {
 			throw new IncorrectCredentialsException();// 用户名或密码不匹配
 		}
 		usernamePasswordToken.setPassword(password.toCharArray());
-		return new SimpleAuthenticationInfo(new SecurityUser(username,
-				userInfo.getUserId(), username), password, getName());
+		SecurityUser securityUser = new SecurityUser(userInfo.getUserId(),
+				username);
+		securityUser.setUserName(userInfo.getUserName());
+		return new SimpleAuthenticationInfo(securityUser, password, getName());
 	}
 }

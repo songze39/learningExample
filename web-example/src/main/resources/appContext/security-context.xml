@@ -8,18 +8,18 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<bean id="securityManager"
-		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		class="com.rabbitframework.security.web.mgt.SimpleWebSecurityManager">
 		<property name="realm" ref="securityRealm" />
 		<property name="sessionManager" ref="webSessionManager" />
 		<property name="cacheManager" ref="redisCacheManager" />
 	</bean>
 
 	<bean name="webSessionManager"
-		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		class="com.rabbitframework.security.web.session.mgt.SimpleWebSessionManager">
 		<property name="sessionDAO" ref="redisSessionDAO" />
 		<property name="sessionIdCookie" ref="sessionIdCookie" />
-		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
-		<property name="sessionValidationSchedulerEnabled" value="false" />
+		<!-- <property name="sessionValidationScheduler" ref="sessionValidationScheduler" 
+			/> <property name="sessionValidationSchedulerEnabled" value="false" /> -->
 	</bean>
 
 	<bean name="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
@@ -28,11 +28,9 @@
 		<property name="maxAge" value="300000" />
 	</bean>
 
-	<bean id="sessionValidationScheduler"
-		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
-		<property name="interval" value="3600000" />
-		<property name="sessionManager" ref="webSessionManager" />
-	</bean>
+	<!-- <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler"> 
+		<property name="interval" value="3600000" /> <property name="sessionManager" 
+		ref="webSessionManager" /> </bean> -->
 	<bean id="redisCacheManager" class="com.yile.learning.security.rediscache.RedisCacheManager">
 		<property name="redisManager" ref="shardedJedisPoolManager" />
 	</bean>
@@ -49,9 +47,14 @@
 	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">
 		<property name="name" value="securityRealm" />
 	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
 
-	<bean id="lifecycleBeanPostProcessor"
-		class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 	<bean
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
 		depends-on="lifecycleBeanPostProcessor">
@@ -81,7 +84,7 @@
 				/login/**=anon
 				/unauthorized=anon
 				<!-- /index=yilePermsFilter -->
-				/**=authc,yilePermsFilter
+				/**=authc
 			</value>
 		</property>
 	</bean>
