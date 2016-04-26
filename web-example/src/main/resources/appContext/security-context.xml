@@ -31,17 +31,18 @@
 	<!-- <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler"> 
 		<property name="interval" value="3600000" /> <property name="sessionManager" 
 		ref="webSessionManager" /> </bean> -->
-	<bean id="redisCacheManager" class="com.yile.learning.security.rediscache.RedisCacheManager">
+	<bean id="redisCacheManager"
+		class="com.rabbitframework.security.cache.redis.RedisCacheManager">
 		<property name="redisManager" ref="shardedJedisPoolManager" />
 	</bean>
 
 	<bean id="shardedJedisPoolManager"
-		class="com.yile.learning.security.rediscache.ShardedJedisPoolManager">
-		<property name="expire" value="3600" />
+		class="com.rabbitframework.security.cache.redis.ShardedJedisPoolManager">
+		<property name="shardedJedisPool" ref="shardedJedisPool" />
 	</bean>
 
-	<bean id="redisSessionDAO" class="com.yile.learning.security.rediscache.RedisSessionDAO">
-		<property name="redisManager" ref="shardedJedisPoolManager" />
+	<bean id="redisSessionDAO"
+		class="com.rabbitframework.security.cache.redis.RedisSessionDAO">
 	</bean>
 
 	<bean id="securityRealm" class="com.yile.learning.security.realm.SecurityRealm">

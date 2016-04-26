@@ -49,7 +49,7 @@
 		<commons-io.version>2.4</commons-io.version>
 		<com.rabbitframework.version>1.1.1-SNAPSHOT</com.rabbitframework.version>
 		<fastjson.version>1.2.7</fastjson.version>
-		<jedis.verion>2.8.0</jedis.verion>
+		<jedis.version>2.8.0</jedis.version>
 		<org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>
 		<org.apache.curator.version>2.9.1</org.apache.curator.version>
 		<druid.version>0.1.19</druid.version>
@@ -131,7 +131,7 @@
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
-				<version>${jedis.verion}</version>
+				<version>${jedis.version}</version>
 			</dependency>
 			<!-- redis end -->
 			<dependency>
