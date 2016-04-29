@@ -12,6 +12,7 @@
 		<module>redis-example</module>
 		<module>zookeeper-example</module>
 		<module>cassandra-example</module>
+		<module>dubbo-example</module>
 	</modules>
 	<properties>
 		<java.version>1.7</java.version>
