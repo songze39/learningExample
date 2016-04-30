@@ -10,4 +10,15 @@
 	</parent>
 	<artifactId>dubbo-example-consumer</artifactId>
 	<packaging>jar</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>com.yile.learning</groupId>
+			<artifactId>dubbo-example-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+	</dependencies>
 </project>
