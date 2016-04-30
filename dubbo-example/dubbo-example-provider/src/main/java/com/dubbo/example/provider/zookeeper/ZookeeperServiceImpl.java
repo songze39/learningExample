@@ -1,4 +1,4 @@
-package com.dubbo.example.provider;
+package com.dubbo.example.provider.zookeeper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

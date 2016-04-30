@@ -8,13 +8,5 @@
 			<value>classpath:dubbo.properties</value>
 		</property>
 	</bean>
-	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
-	<dubbo:application name="zookeeper-app-consumer" />
-
-	<!-- 使用multicast广播注册中心暴露发现服务地址 -->
-	<dubbo:registry address="${dubbo.zookeeper}" />
-
-	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-	<dubbo:reference id="zookeeperService"
-		interface="com.dubbo.example.api.ZookeeperService" />
+	<import resource="classpath:/zookeeper-context.xml" />
 </beans>
