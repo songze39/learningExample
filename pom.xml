@@ -166,6 +166,11 @@
 				<version>${com.rabbitframework.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.rabbitframework</groupId>
+				<artifactId>rabbitframework-security-rediscache</artifactId>
+				<version>${com.rabbitframework.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.ow2.asm</groupId>
 				<artifactId>asm</artifactId>
 				<version>${asm-tree.version}</version>
