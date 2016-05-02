@@ -1,12 +1,13 @@
 package com.yile.learning.model;
 
 import com.rabbitframework.jadb.annontations.Column;
+import com.rabbitframework.jadb.annontations.ID;
 import com.rabbitframework.jadb.annontations.Table;
 
 @Table
 public class RoleInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	@Column
+	@ID
 	private int roleId;
 	@Column
 	private String roleName;
