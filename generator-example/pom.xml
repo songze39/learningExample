@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yile.learning</groupId>
+		<artifactId>learning-example</artifactId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>generator-example</artifactId>
+	<properties>
+		<mysql.version>5.1.36</mysql.version>
+		<c3po.version>0.9.1.2</c3po.version>
+		<java.version>1.7</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.rabbitframework</groupId>
+			<artifactId>rabbitframework-generator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${c3po.version}</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -13,6 +13,7 @@
 		<module>zookeeper-example</module>
 		<module>cassandra-example</module>
 		<module>dubbo-example</module>
+		<module>generator-example</module>
 	</modules>
 	<properties>
 		<java.version>1.7</java.version>
@@ -148,6 +149,11 @@
 			<dependency>
 				<groupId>com.rabbitframework</groupId>
 				<artifactId>rabbitframework-jadb</artifactId>
+				<version>${com.rabbitframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rabbitframework</groupId>
+				<artifactId>rabbitframework-generator</artifactId>
 				<version>${com.rabbitframework.version}</version>
 			</dependency>
 			<dependency>
