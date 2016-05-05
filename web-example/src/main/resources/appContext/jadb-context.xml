@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-    <context:property-placeholder location="classpath:datasource.properties" ignore-unresolvable="true"/>
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="close">
-        <property name="url" value="${jdbc_url}"/>
-        <property name="username" value="${jdbc_user}"/>
-        <property name="password" value="${jdbc_password}"/>
-        <property name="initialSize" value="${initialSize}"/>
-        <property name="minIdle" value="${minIdle}"/>
-        <property name="maxActive" value="${maxActive}"/>
-        <property name="maxWait" value="${maxWait}"/>
-        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
-        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
-        <property name="validationQuery" value="${validationQuery}"/>
-        <property name="testWhileIdle" value="${testWhileIdle}"/>
-        <property name="testOnBorrow" value="${testOnBorrow}"/>
-        <property name="testOnReturn" value="${testOnReturn}"/>
-        <property name="poolPreparedStatements" value="${poolPreparedStatements}"/>
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
-        <property name="filters" value="${filters}"/>
-    </bean>
+	<context:property-placeholder location="classpath:datasource.properties"
+		ignore-unresolvable="true" />
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_user}" />
+		<property name="password" value="${jdbc_password}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="testOnBorrow" value="${testOnBorrow}" />
+		<property name="testOnReturn" value="${testOnReturn}" />
+		<property name="poolPreparedStatements" value="${poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="20" />
+		<property name="filters" value="${filters}" />
+	</bean>
 
-    <bean id="dataSourceFactory"
-          class="com.rabbitframework.jadb.dataaccess.datasource.SimpleDataSourceFactory"/>
+	<bean id="dataSourcebean" class="com.rabbitframework.jadb.dataaccess.DataSourceBean">
+		<property name="dialect" value="mysql" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
-    <bean id="rabbitJadbFactory" class="com.rabbitframework.jadb.spring.RabbitJadbFactoryBean">
-        <!-- <property name="configLocation" value="classpath:jade-config.xml"></property> -->
-        <property name="entityPackages" value="com.yile.**.model"></property>
-        <property name="mapperPackages" value="com.yile.**.mapper"></property>
-        <property name="dataSourceFactory" ref="dataSourceFactory"></property>
-        <property name="dataSourceMap">
-            <map>
-                <entry key="default" value-ref="dataSource"></entry>
-            </map>
-        </property>
-    </bean>
+	<bean id="dataSourceFactory"
+		class="com.rabbitframework.jadb.dataaccess.datasource.SimpleDataSourceFactory" />
 
-    <bean class="com.rabbitframework.jadb.spring.MapperScannerConfigurer">
-        <property name="basePackage" value="com.yile.**.mapper"/>
-        <property name="rabbitJadbFactoryBeanName" value="rabbitJadbFactory"/>
-    </bean>
+	<bean id="rabbitJadbFactory" class="com.rabbitframework.jadb.spring.RabbitJadbFactoryBean">
+		<!-- <property name="configLocation" value="classpath:jade-config.xml"></property> -->
+		<property name="entityPackages" value="com.yile.**.model"></property>
+		<property name="mapperPackages" value="com.yile.**.mapper"></property>
+		<property name="dataSourceFactory" ref="dataSourceFactory"></property>
+		<property name="dataSourceMap">
+			<map>
+				<entry key="default" value-ref="dataSourcebean"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean class="com.rabbitframework.jadb.spring.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yile.**.mapper" />
+		<property name="rabbitJadbFactoryBeanName" value="rabbitJadbFactory" />
+	</bean>
 </beans>
