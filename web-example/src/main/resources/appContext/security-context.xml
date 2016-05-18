@@ -84,7 +84,7 @@
 				/login/logout=logout
 				/login/**=anon
 				/unauthorized=anon
-				<!-- /index=yilePermsFilter -->
+				/index=yilePermsFilter
 				/**=authc
 			</value>
 		</property>

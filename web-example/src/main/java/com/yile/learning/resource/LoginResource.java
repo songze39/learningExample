@@ -13,11 +13,13 @@ import org.apache.shiro.subject.Subject;
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.rabbitframework.security.SecurityUser;
+import com.yile.learning.security.realm.SecurityRealm;
 
 @Component("loginResource")
 @Path("/")
@@ -25,6 +27,8 @@ import com.rabbitframework.security.SecurityUser;
 public class LoginResource {
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginResource.class);
+	@Autowired
+	private SecurityRealm securityRealm;
 
 	/**
 	 * 跳转到登录界面
@@ -78,6 +82,13 @@ public class LoginResource {
 		SecurityUser securityUser = (SecurityUser) obj;
 		logger.debug("userId:" + securityUser.getUserId());
 		return new Viewable("/index.jsp");
+	}
+
+	@GET
+	@Path("clearCache")
+	@Produces(MediaType.TEXT_HTML)
+	public void cleanAuthz() {
+		securityRealm.clearCache();
 	}
 
 	/**

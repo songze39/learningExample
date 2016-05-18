@@ -1,5 +1,6 @@
 package com.yile.learning.security.realm;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -11,6 +12,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.Cache;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -82,5 +84,40 @@ public class SecurityRealm extends AuthorizingRealm {
 				username);
 		securityUser.setUserName(userInfo.getUserName());
 		return new SimpleAuthenticationInfo(securityUser, password, getName());
+	}
+
+	@Override
+	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
+		String prefix = "web-example:";
+		Collection c = principals.fromRealm(getName());
+		if (c == null || c.size() == 0) {
+			return principals;
+		}
+
+		Object userObject = principals.fromRealm(getName()).iterator().next();
+		if (userObject == null) {
+			return principals;
+		}
+		String loginName = null;
+		if (userObject instanceof SecurityUser) {
+			SecurityUser shiroUser = (SecurityUser) userObject;
+			loginName = shiroUser.getLoginName().toLowerCase();
+		}
+		if (loginName != null) {
+			return prefix + loginName;
+		}
+		return principals;
+	}
+
+	public void clearCache() {
+		String prefix = "web-example:";
+		Cache<Object, AuthorizationInfo> cache = getAuthorizationCache();
+		cache.remove(prefix + "test");
+		// SecurityUser securityUser = new SecurityUser(1, "test");
+		// securityUser.setUserName("test");
+		// SimplePrincipalCollection s = new SimplePrincipalCollection(
+		// securityUser, getName());
+		// String str = s.toString();
+		// clearCachedAuthorizationInfo(s);
 	}
 }
