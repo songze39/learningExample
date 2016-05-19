@@ -10,7 +10,7 @@
       	<td>客户端和服务器之间的心跳间隔（毫秒）</td>
   </tr>
   <tr>
-     	<td>initLimit </td>
+     	<td>initLimit</td>
       	<td>FOLLOWER与LEADER初始连接的最大延迟心跳数</td>
   </tr>
   <tr>
