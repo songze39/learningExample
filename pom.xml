@@ -50,7 +50,7 @@
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-io.version>2.4</commons-io.version>
 		<com.rabbitframework.version>1.1.2</com.rabbitframework.version>
-		<fastjson.version>1.2.7</fastjson.version>
+		<fastjson.version>1.2.11</fastjson.version>
 		<jedis.version>2.8.0</jedis.version>
 		<org.apache.zookeeper.version>3.4.6</org.apache.zookeeper.version>
 		<org.apache.curator.version>2.9.1</org.apache.curator.version>
